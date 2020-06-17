@@ -26,9 +26,9 @@ namespace VendingMachineKata.Console.Tests.Parse
         {
             IParseConsoleInput parseConsoleInput = Mocker.CreateInstance<ParseConsoleInput>();
 
-            var coin = parseConsoleInput.Parse("5");
+            var coinValue = parseConsoleInput.Parse("5");
 
-            coin.Should().BeOfType<Nickle>();
+            coinValue.Should().Be(5);
         }
     }
 }

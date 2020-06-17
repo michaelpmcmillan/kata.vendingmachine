@@ -4,6 +4,6 @@ namespace VendingMachineKata.ConsoleApp.Parse
 {
     public interface IParseConsoleInput
     {
-        ICoin Parse(string input);
+        int Parse(string input);
     }
 }

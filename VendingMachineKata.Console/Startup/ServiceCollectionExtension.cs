@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using VendingMachineKata.Coin;
 using VendingMachineKata.ConsoleApp.Parse;
 
 namespace VendingMachineKata.ConsoleApp.Startup
@@ -9,6 +10,7 @@ namespace VendingMachineKata.ConsoleApp.Startup
         {
             return serviceCollection
                 .AddTransient<IConsoleLoop, ConsoleLoop>()
+                .AddTransient<ICoinFactory, CoinFactory>()
                 .AddTransient<IParseConsoleInput, ParseConsoleInput>();
         }
     }

@@ -1,6 +1,7 @@
 using AutoFixture;
 using Moq;
 using Moq.AutoMock;
+using VendingMachineKata.Coin;
 using VendingMachineKata.ConsoleApp;
 using VendingMachineKata.ConsoleApp.Parse;
 using Xunit;
@@ -26,7 +27,24 @@ namespace VendingMachineKata.Console.Tests
 
             consoleLoop.Iterate(textToParse);
 
-            Mocker.Verify<IParseConsoleInput>(p => p.Parse(textToParse), Times.Once);
+            Mocker.Verify<IParseConsoleInput, int>(p => p.Parse(textToParse), Times.Once);
+        }
+
+
+        [Fact]
+        public void WhenIterate_AndAValidCoinIsInserted_ThenCoinIsParsed()
+        {
+            var consoleLoop = Mocker.CreateInstance<ConsoleLoop>();
+            const int coinValue = 5;
+            var textToParse = coinValue.ToString();
+
+            Mocker.GetMock<IParseConsoleInput>()
+                .Setup(parseConsoleInput => parseConsoleInput.Parse(textToParse))
+                .Returns(coinValue);
+
+            consoleLoop.Iterate(textToParse);
+
+            Mocker.Verify<ICoinFactory>(p => p.Create(coinValue), Times.Once);
         }
     }
 }
