@@ -4,6 +4,7 @@
     {
         InvalidCoin,
         Nickle,
-        Dime
+        Dime,
+        Quarter
     }
 }

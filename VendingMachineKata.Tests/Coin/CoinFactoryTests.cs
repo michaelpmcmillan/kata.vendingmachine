@@ -29,7 +29,6 @@ namespace VendingMachineKata.Tests.Coin
             coin.Value.Should().Be(5);
         }
 
-
         [Fact]
         public void WhenCreate_WithCoinEnumDime_ThenDimeIsCreated()
         {
@@ -40,6 +39,18 @@ namespace VendingMachineKata.Tests.Coin
 
             coin.Should().BeOfType<Dime>();
             coin.Value.Should().Be(10);
+        }
+
+        [Fact]
+        public void WhenCreate_WithCoinEnumQuarter_ThenQuarterIsCreated()
+        {
+            const CoinEnum value = CoinEnum.Quarter;
+            var coinFactory = Mocker.CreateInstance<CoinFactory>();
+
+            var coin = coinFactory.Create(value);
+
+            coin.Should().BeOfType<Quarter>();
+            coin.Value.Should().Be(25);
         }
     }
 }

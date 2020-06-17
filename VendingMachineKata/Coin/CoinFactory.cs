@@ -8,6 +8,7 @@
             {
                 case CoinEnum.Nickle: return new Nickle();
                 case CoinEnum.Dime: return new Dime();
+                case CoinEnum.Quarter: return new Quarter();
                 default: return null;
             }
         }
