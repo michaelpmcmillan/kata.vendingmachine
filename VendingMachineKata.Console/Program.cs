@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Kata.VendingMachine.ConsoleApp
+namespace VendingMachineKata.ConsoleApp
 {
     class Program
     {

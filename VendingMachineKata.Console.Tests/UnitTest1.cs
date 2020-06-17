@@ -1,6 +1,6 @@
 using Xunit;
 
-namespace Kata.VendingMachine.Console.Tests
+namespace VendingMachineKata.Console.Tests
 {
     public class UnitTest1
     {
