@@ -4,7 +4,7 @@ namespace VendingMachineKata
 {
     public interface IVendingMachine
     {
-        void InsertCoin(ICoin coin);
+        void InsertCoin(CoinEnum coin);
         double GetCoinTotal();
     }
 }

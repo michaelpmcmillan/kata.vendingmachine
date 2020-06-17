@@ -22,14 +22,28 @@ namespace VendingMachineKata.Tests
         }
 
         [Fact]
-        public void WhenGetCoinTotal_WithANickle_ThenICoinCollectionAddCoinShouldBeInvoked()
+        public void WhenInsertCoin_WithANickle_ICoinFactoryCreateShouldBeInvoked()
         {
             IVendingMachine vendingMachine = Mocker.CreateInstance<VendingMachine>();
-            ICoin coin = new Nickle();
+            const CoinEnum coin = CoinEnum.Nickle;
 
             vendingMachine.InsertCoin(coin);
 
-            Mocker.Verify<ICoinCollection>(c => c.AddCoin(coin), Times.Once);
+            Mocker.Verify<ICoinFactory>(c => c.Create(coin), Times.Once);
+        }
+
+        [Fact]
+        public void WhenInsertCoin_WithANickle_ICoinCollectionAddCoinShouldBeInvoked()
+        {
+            IVendingMachine vendingMachine = Mocker.CreateInstance<VendingMachine>();
+            const CoinEnum coin = CoinEnum.Nickle;
+            var nickle = new Nickle();
+
+            Mocker.GetMock<ICoinFactory>().Setup(c => c.Create(coin)).Returns(nickle);
+
+            vendingMachine.InsertCoin(coin);
+
+            Mocker.Verify<ICoinCollection>(c => c.AddCoin(nickle), Times.Once);
         }
 
         [Fact]

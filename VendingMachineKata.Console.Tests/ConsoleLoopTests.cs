@@ -27,37 +27,21 @@ namespace VendingMachineKata.Console.Tests
 
             consoleLoop.Iterate(textToParse);
 
-            Mocker.Verify<IParseConsoleInput, int>(p => p.Parse(textToParse), Times.Once);
-        }
-
-
-        [Fact]
-        public void WhenIterate_AndAValidCoinIsInserted_ThenCoinIsParsed()
-        {
-            var consoleLoop = Mocker.CreateInstance<ConsoleLoop>();
-            const int coinValue = 5;
-            var textToParse = coinValue.ToString();
-
-            Mocker.GetMock<IParseConsoleInput>()
-                .Setup(parseConsoleInput => parseConsoleInput.Parse(textToParse))
-                .Returns(coinValue);
-
-            consoleLoop.Iterate(textToParse);
-
-            Mocker.Verify<ICoinFactory>(p => p.Create(coinValue), Times.Once);
+            Mocker.Verify<IParseConsoleInput, CoinEnum>(p => p.Parse(textToParse), Times.Once);
         }
 
         [Fact]
         public void WhenIterate_AndANickelHasBeenDetected_ThenInsertCoinIntoVendingMachine()
         {
             var consoleLoop = Mocker.CreateInstance<ConsoleLoop>();
-            ICoin coin = new Nickle();
+            const CoinEnum coin = CoinEnum.Nickle;
+            const string nickle = "Nickle";
 
-            Mocker.GetMock<ICoinFactory>()
-                .Setup(coinFactory => coinFactory.Create(It.IsAny<int>()))
+            Mocker.GetMock<IParseConsoleInput>()
+                .Setup(p => p.Parse(nickle))
                 .Returns(coin);
 
-            consoleLoop.Iterate("5");
+            consoleLoop.Iterate(nickle);
 
             Mocker.Verify<IVendingMachine>(v => v.InsertCoin(coin));
         }

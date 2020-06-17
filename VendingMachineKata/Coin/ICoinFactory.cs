@@ -2,6 +2,6 @@
 {
     public interface ICoinFactory
     {
-        ICoin Create(int value);
+        ICoin Create(CoinEnum coin);
     }
 }

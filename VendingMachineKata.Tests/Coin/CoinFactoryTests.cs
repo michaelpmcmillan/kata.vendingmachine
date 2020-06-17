@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using AutoFixture;
+﻿using AutoFixture;
 using FluentAssertions;
 using Moq.AutoMock;
 using VendingMachineKata.Coin;
@@ -23,13 +20,13 @@ namespace VendingMachineKata.Tests.Coin
         [Fact]
         public void WhenCreate_With5Cents_ThenNickleIsCreated()
         {
-            const int value = 5;
+            const CoinEnum value = CoinEnum.Nickle;
             var coinFactory = Mocker.CreateInstance<CoinFactory>();
 
             var coin = coinFactory.Create(value);
 
             coin.Should().BeOfType<Nickle>();
-            coin.Value.Should().Be(value);
+            coin.Value.Should().Be(5);
         }
     }
 }

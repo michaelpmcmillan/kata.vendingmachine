@@ -18,8 +18,7 @@ namespace VendingMachineKata.ConsoleApp
 
         public void Iterate(string input)
         {
-            var coinValue = _parseConsoleInput.Parse(input);
-            var coin = _coinFactory.Create(coinValue);
+            var coin = _parseConsoleInput.Parse(input);
             _vendingMachine.InsertCoin(coin);
         }
     }

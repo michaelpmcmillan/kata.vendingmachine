@@ -2,9 +2,13 @@
 {
     public class CoinFactory : ICoinFactory
     {
-        public ICoin Create(int value)
+        public ICoin Create(CoinEnum coin)
         {
-            return new Nickle();
+            switch (coin)
+            {
+                case CoinEnum.Nickle: return new Nickle();
+                default: return null;
+            }
         }
     }
 }
