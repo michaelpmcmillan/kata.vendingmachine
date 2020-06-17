@@ -7,11 +7,13 @@ namespace VendingMachineKata
     {
         private readonly ICoinCollection _coinCollection;
         private readonly ICoinFactory _coinFactory;
+        private readonly IVendingMachineDisplay _vendingMachineDisplay;
 
-        public VendingMachine(ICoinCollection coinCollection, ICoinFactory coinFactory)
+        public VendingMachine(ICoinCollection coinCollection, ICoinFactory coinFactory, IVendingMachineDisplay vendingMachineDisplay)
         {
             _coinCollection = coinCollection;
             _coinFactory = coinFactory;
+            _vendingMachineDisplay = vendingMachineDisplay;
         }
 
         public void InsertCoin(CoinEnum coinValue)
@@ -21,6 +23,7 @@ namespace VendingMachineKata
             if (coin != null)
             {
                 _coinCollection.AddCoin(coin);
+                _vendingMachineDisplay.Update(_coinCollection);
             }
         }
 
