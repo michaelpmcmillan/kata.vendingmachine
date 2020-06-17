@@ -7,6 +7,7 @@
             switch (coin)
             {
                 case CoinEnum.Nickle: return new Nickle();
+                case CoinEnum.Dime: return new Dime();
                 default: return null;
             }
         }

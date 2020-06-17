@@ -18,7 +18,7 @@ namespace VendingMachineKata.Tests.Coin
         }
 
         [Fact]
-        public void WhenCreate_With5Cents_ThenNickleIsCreated()
+        public void WhenCreate_WithCoinEnumNickel_ThenNickleIsCreated()
         {
             const CoinEnum value = CoinEnum.Nickle;
             var coinFactory = Mocker.CreateInstance<CoinFactory>();
@@ -27,6 +27,19 @@ namespace VendingMachineKata.Tests.Coin
 
             coin.Should().BeOfType<Nickle>();
             coin.Value.Should().Be(5);
+        }
+
+
+        [Fact]
+        public void WhenCreate_WithCoinEnumDime_ThenDimeIsCreated()
+        {
+            const CoinEnum value = CoinEnum.Dime;
+            var coinFactory = Mocker.CreateInstance<CoinFactory>();
+
+            var coin = coinFactory.Create(value);
+
+            coin.Should().BeOfType<Dime>();
+            coin.Value.Should().Be(10);
         }
     }
 }
