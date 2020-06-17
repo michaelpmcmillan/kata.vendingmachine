@@ -11,7 +11,8 @@ namespace VendingMachineKata.ConsoleApp.Startup
             return serviceCollection
                 .AddTransient<IConsoleLoop, ConsoleLoop>()
                 .AddTransient<ICoinFactory, CoinFactory>()
-                .AddTransient<IParseConsoleInput, ParseConsoleInput>();
+                .AddTransient<IParseConsoleInput, ParseConsoleInput>()
+                .AddTransient<IVendingMachine, VendingMachine>();
         }
     }
 }

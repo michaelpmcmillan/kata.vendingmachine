@@ -46,5 +46,20 @@ namespace VendingMachineKata.Console.Tests
 
             Mocker.Verify<ICoinFactory>(p => p.Create(coinValue), Times.Once);
         }
+
+        [Fact]
+        public void WhenIterate_AndANickelHasBeenDetected_ThenInsertCoinIntoVendingMachine()
+        {
+            var consoleLoop = Mocker.CreateInstance<ConsoleLoop>();
+            ICoin coin = new Nickle();
+
+            Mocker.GetMock<ICoinFactory>()
+                .Setup(coinFactory => coinFactory.Create(It.IsAny<int>()))
+                .Returns(coin);
+
+            consoleLoop.Iterate("5");
+
+            Mocker.Verify<IVendingMachine>(v => v.InsertCoin(coin));
+        }
     }
 }
