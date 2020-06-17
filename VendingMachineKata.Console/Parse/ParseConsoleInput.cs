@@ -1,10 +1,12 @@
-﻿namespace VendingMachineKata.ConsoleApp.Parse
+﻿using VendingMachineKata.Coin;
+
+namespace VendingMachineKata.ConsoleApp.Parse
 {
     public class ParseConsoleInput : IParseConsoleInput
     {
-        public void Parse(string textToParse)
+        public ICoin Parse(string input)
         {
-            throw new System.NotImplementedException();
+            return new Nickle();
         }
     }
 }

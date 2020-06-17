@@ -1,7 +1,9 @@
+using VendingMachineKata.Coin;
+
 namespace VendingMachineKata.ConsoleApp.Parse
 {
     public interface IParseConsoleInput
     {
-        void Parse(string textToParse);
+        ICoin Parse(string input);
     }
 }
