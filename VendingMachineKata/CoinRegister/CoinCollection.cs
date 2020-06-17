@@ -1,7 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using VendingMachineKata.Coin;
 
-namespace VendingMachineKata.Coin
+namespace VendingMachineKata.CoinRegister
 {
     public class CoinCollection : List<ICoin>, ICoinCollection
     {

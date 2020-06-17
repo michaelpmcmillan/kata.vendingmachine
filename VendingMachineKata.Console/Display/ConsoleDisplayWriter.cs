@@ -7,6 +7,7 @@ namespace VendingMachineKata.ConsoleApp.Display
     {
         public void Write(string text)
         {
+            Console.Clear();
             Console.WriteLine(text);
         }
     }

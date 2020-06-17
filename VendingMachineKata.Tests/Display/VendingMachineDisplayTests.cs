@@ -3,6 +3,7 @@ using FluentAssertions;
 using Moq;
 using Moq.AutoMock;
 using VendingMachineKata.Coin;
+using VendingMachineKata.CoinRegister;
 using VendingMachineKata.Display;
 using Xunit;
 

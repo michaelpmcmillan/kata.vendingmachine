@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using AutoFixture;
+﻿using AutoFixture;
 using FluentAssertions;
 using Moq.AutoMock;
 using VendingMachineKata.Coin;
+using VendingMachineKata.CoinRegister;
 using Xunit;
 
 namespace VendingMachineKata.Tests.Coin
@@ -28,7 +26,7 @@ namespace VendingMachineKata.Tests.Coin
 
             coinCollection.AddCoin(coin);
 
-            coinCollection.Should().BeEquivalentTo(new List<ICoin> { coin });
+            coinCollection.Should().BeEquivalentTo(new [] { coin });
         }
     }
 }

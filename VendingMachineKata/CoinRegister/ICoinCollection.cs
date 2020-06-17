@@ -1,4 +1,6 @@
-﻿namespace VendingMachineKata.Coin
+﻿using VendingMachineKata.Coin;
+
+namespace VendingMachineKata.CoinRegister
 {
     public interface ICoinCollection
     {

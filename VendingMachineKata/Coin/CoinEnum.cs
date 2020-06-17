@@ -3,6 +3,7 @@
     public enum CoinEnum
     {
         InvalidCoin,
+        Penny,
         Nickle,
         Dime,
         Quarter

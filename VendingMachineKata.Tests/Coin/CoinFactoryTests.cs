@@ -52,5 +52,17 @@ namespace VendingMachineKata.Tests.Coin
             coin.Should().BeOfType<Quarter>();
             coin.Value.Should().Be(25);
         }
+
+        [Fact]
+        public void WhenCreate_WithCoinEnumInvalid_ThenInvalidCoinIsCreated()
+        {
+            const CoinEnum value = CoinEnum.InvalidCoin;
+            var coinFactory = Mocker.CreateInstance<CoinFactory>();
+
+            var coin = coinFactory.Create(value);
+
+            coin.Should().BeOfType<InvalidCoin>();
+            coin.Value.Should().Be(0);
+        }
     }
 }

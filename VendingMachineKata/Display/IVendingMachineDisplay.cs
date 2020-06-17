@@ -1,4 +1,4 @@
-﻿using VendingMachineKata.Coin;
+﻿using VendingMachineKata.CoinRegister;
 
 namespace VendingMachineKata.Display
 {

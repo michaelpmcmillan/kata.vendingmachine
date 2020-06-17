@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using VendingMachineKata.Coin;
+using VendingMachineKata.CoinRegister;
 using VendingMachineKata.ConsoleApp.Display;
 using VendingMachineKata.ConsoleApp.Parse;
 using VendingMachineKata.Display;
@@ -14,7 +15,8 @@ namespace VendingMachineKata.ConsoleApp.Startup
                 .AddTransient<IConsoleLoop, ConsoleLoop>()
                 .AddTransient<IDisplayWriter, ConsoleDisplayWriter>()
                 .AddTransient<ICoinFactory, CoinFactory>()
-                .AddTransient<ICoinCollection, CoinCollection>()
+                .AddTransient<ICoinSlot, CoinSlot>()
+                .AddTransient<ICoinReturn, CoinReturn>()
                 .AddTransient<IParseConsoleInput, ParseConsoleInput>()
                 .AddTransient<IVendingMachine, VendingMachine>()
                 .AddTransient<IVendingMachineDisplay, VendingMachineDisplay>();

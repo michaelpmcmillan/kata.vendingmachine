@@ -1,17 +1,20 @@
 ﻿using VendingMachineKata.Coin;
+using VendingMachineKata.CoinRegister;
 using VendingMachineKata.Display;
 
 namespace VendingMachineKata
 {
     public class VendingMachine : IVendingMachine
     {
-        private readonly ICoinCollection _coinCollection;
+        private readonly ICoinSlot _coinSlot;
+        private readonly ICoinReturn _coinReturn;
         private readonly ICoinFactory _coinFactory;
         private readonly IVendingMachineDisplay _vendingMachineDisplay;
 
-        public VendingMachine(ICoinCollection coinCollection, ICoinFactory coinFactory, IVendingMachineDisplay vendingMachineDisplay)
+        public VendingMachine(ICoinSlot coinSlot, ICoinReturn coinReturn, ICoinFactory coinFactory, IVendingMachineDisplay vendingMachineDisplay)
         {
-            _coinCollection = coinCollection;
+            _coinSlot = coinSlot;
+            _coinReturn = coinReturn;
             _coinFactory = coinFactory;
             _vendingMachineDisplay = vendingMachineDisplay;
         }
@@ -20,16 +23,20 @@ namespace VendingMachineKata
         {
             var coin = _coinFactory.Create(coinValue);
 
-            if (coin != null)
+            if (coin is InvalidCoin)
             {
-                _coinCollection.AddCoin(coin);
-                _vendingMachineDisplay.Update(_coinCollection);
+                _coinReturn.AddCoin(coin);
+            }
+            else
+            {
+                _coinSlot.AddCoin(coin);
+                _vendingMachineDisplay.Update(_coinSlot);
             }
         }
 
         public double GetCoinTotal()
         {
-            return _coinCollection.GetCoinTotal();
+            return _coinSlot.GetCoinTotal();
         }
     }
 }

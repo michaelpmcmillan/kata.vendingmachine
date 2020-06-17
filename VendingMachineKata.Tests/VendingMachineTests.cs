@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
 using System.Text;
 using AutoFixture;
 using FluentAssertions;
 using Moq;
 using Moq.AutoMock;
 using VendingMachineKata.Coin;
+using VendingMachineKata.CoinRegister;
 using Xunit;
 
 namespace VendingMachineKata.Tests
@@ -21,29 +23,50 @@ namespace VendingMachineKata.Tests
             Mocker = new AutoMocker();
         }
 
-        [Fact]
-        public void WhenInsertCoin_WithANickle_ICoinFactoryCreateShouldBeInvoked()
+        [Theory]
+        [InlineData(CoinEnum.Penny)]
+        [InlineData(CoinEnum.Nickle)]
+        [InlineData(CoinEnum.Dime)]
+        [InlineData(CoinEnum.Quarter)]
+        [InlineData(CoinEnum.InvalidCoin)]
+        public void WhenInsertCoin_WithAnyCoin_ICoinFactoryCreateShouldBeInvoked(CoinEnum coin)
         {
             IVendingMachine vendingMachine = Mocker.CreateInstance<VendingMachine>();
-            const CoinEnum coin = CoinEnum.Nickle;
 
             vendingMachine.InsertCoin(coin);
 
             Mocker.Verify<ICoinFactory>(c => c.Create(coin), Times.Once);
         }
 
-        [Fact]
-        public void WhenInsertCoin_WithANickle_ICoinCollectionAddCoinShouldBeInvoked()
+        [Theory]
+        [InlineData(CoinEnum.Nickle, typeof(Nickle))]
+        [InlineData(CoinEnum.Dime, typeof(Dime))]
+        [InlineData(CoinEnum.Quarter, typeof(Quarter))]
+        public void WhenInsertCoin_WithAValidCoin_ICoinCollectionAddCoinShouldBeInvoked(CoinEnum coinEnum, Type coinType)
         {
             IVendingMachine vendingMachine = Mocker.CreateInstance<VendingMachine>();
-            const CoinEnum coin = CoinEnum.Nickle;
-            var nickle = new Nickle();
+            ICoin coin = (ICoin)Activator.CreateInstance(coinType);
 
-            Mocker.GetMock<ICoinFactory>().Setup(c => c.Create(coin)).Returns(nickle);
+            Mocker.GetMock<ICoinFactory>().Setup(c => c.Create(coinEnum)).Returns(coin);
 
-            vendingMachine.InsertCoin(coin);
+            vendingMachine.InsertCoin(coinEnum);
 
-            Mocker.Verify<ICoinCollection>(c => c.AddCoin(nickle), Times.Once);
+            Mocker.Verify<ICoinSlot>(c => c.AddCoin(coin), Times.Once);
+        }
+
+        [Theory]
+        [InlineData(CoinEnum.Penny, typeof(InvalidCoin))]
+        [InlineData(CoinEnum.InvalidCoin, typeof(InvalidCoin))]
+        public void WhenInsertCoin_WithAnInvalidCoin_ICoinCollectionAddCoinShouldBeInvoked(CoinEnum coinEnum, Type coinType)
+        {
+            IVendingMachine vendingMachine = Mocker.CreateInstance<VendingMachine>();
+            ICoin coin = (ICoin)Activator.CreateInstance(coinType);
+
+            Mocker.GetMock<ICoinFactory>().Setup(c => c.Create(coinEnum)).Returns(coin);
+
+            vendingMachine.InsertCoin(coinEnum);
+
+            Mocker.Verify<ICoinReturn>(c => c.AddCoin(coin), Times.Once);
         }
 
         [Fact]
@@ -53,7 +76,7 @@ namespace VendingMachineKata.Tests
 
             vendingMachine.GetCoinTotal();
 
-            Mocker.Verify<ICoinCollection, double>(c => c.GetCoinTotal(), Times.Once);
+            Mocker.Verify<ICoinSlot, double>(c => c.GetCoinTotal(), Times.Once);
         }
     }
 }
